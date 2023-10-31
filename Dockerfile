@@ -20,7 +20,7 @@ RUN \
     apt-transport-https \
     ca-certificates \
     gnupg2 \
-    lsb-release
+    lsb-release \
     sudo
 
 # install docker ce cli
