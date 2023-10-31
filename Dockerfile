@@ -8,15 +8,13 @@ FROM mcr.microsoft.com/devcontainers/typescript-node:${NODE_VARIANT}
 
 # install basic tools & dependencies
 RUN \
-    apt-get update && \
-    apt-get install -y \
+    apt-get update \
+    && apt-get install -y \
     curl \
     jq \
     git \
     libatomic1 \
-    nano \
     net-tools \
-    netcat \
     apt-transport-https \
     ca-certificates \
     gnupg2 \
