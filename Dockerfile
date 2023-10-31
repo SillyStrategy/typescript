@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/devcontainers/typescript-node:${NODE_VARIANT}
 
 # install basic tools & dependencies
 RUN echo "***** INSTALLING TOOLS AND DEPENDENCIES *****" \
-    apt-get update \
+    && apt-get update \
     && apt-get install -y \
     curl \
     jq \
@@ -23,7 +23,7 @@ RUN echo "***** INSTALLING TOOLS AND DEPENDENCIES *****" \
 
 # install docker ce cli
 RUN echo "***** INSTALLING DOCKER CE CLI *****" \
-    curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | apt-key add - 2>/dev/null \
+    && curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | apt-key add - 2>/dev/null \
     && echo "deb [arch=amd64] https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]') $(lsb_release -cs) stable" | tee /​etc​/apt/sources.list.d/docker.list \
     && apt-get update \
     && apt-get install -y \
@@ -31,7 +31,7 @@ RUN echo "***** INSTALLING DOCKER CE CLI *****" \
 
 # install docker compose
 RUN echo "***** INSTALLING DOCKER COMPOSE *****" \
-    DOCKER_COMPOSE_VERSION=$(curl -sSL "https://api.github.com/repos/docker/compose/releases/latest" | grep -o -P '(?<="tag_name": ").+(?=")') \
+    && DOCKER_COMPOSE_VERSION=$(curl -sSL "https://api.github.com/repos/docker/compose/releases/latest" | grep -o -P '(?<="tag_name": ").+(?=")') \
     && curl -sSL "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
     && chmod +x /usr/local/bin/docker-compose
 
@@ -44,8 +44,8 @@ RUN echo "***** INSTALLING CODE-SERVER *****" \
 
 # cleanup
 RUN echo "***** CLEANING UP *****" \
-    apt-get clean && \
-    rm -rf \
+    && apt-get clean \
+    && rm -rf \
     /config/* \
     /tmp/* \
     /var/lib/apt/lists/* \
