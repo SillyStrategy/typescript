@@ -1,18 +1,32 @@
-name: publish
-on: [push]
-jobs:
-publish-hello-docker-image:
-runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v2
-- name: Login to GitHub Container Registry
-uses: docker/login-action@v1
-with:
-registry: ghcr.io
-username: ${{ github.actor }}
-password: ${{ secrets.GITHUB_TOKEN }}
-- name: Build the hello-docker Docker image
-run: |
-      #  docker build . --tag ghcr.io/deselikem/hello-docker-gcr-demo:latest
-      #  docker run ghcr.io/deselikem/hello-docker-gcr-demo:latest
-      #  docker push ghcr.io/deselikem/hello-docker-gcr-demo:latest
+# name: Build and Publish Docker Image - Typescript 20
+
+# on:
+#   push:
+#     branches:
+#       - master
+
+# env:
+#   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#   IMAGE_NAME: typescript-20
+
+# jobs:
+#   build-and-publish:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Login to GitHub Container Registry
+#         uses: docker/login-action@v1
+#         with:
+#           registry: ghcr.io
+#           username: ${{ env.DOCKER_USERNAME }}
+#           password: ${{ env.DOCKER_PASSWORD }}
+
+#       - name: Build and push Docker image
+#         uses: docker/build-push-action@v2
+#         with:
+#           context: .
+#           push: true
+#           tags: ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
