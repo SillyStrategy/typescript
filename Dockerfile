@@ -36,21 +36,11 @@ RUN echo "***** INSTALLING TOOLS AND DEPENDENCIES *****" \
 #     && chmod +x /usr/local/bin/docker-compose
 
 # install code-server
-# RUN echo "***** INSTALLING CODE-SERVER *****" \
-#     && CODE_SERVER_VERSION=$(curl -sX GET https://api.github.com/repos/coder/code-server/releases/latest | awk '/tag_name/{print $4;exit}' FS='[""]' | sed 's|^v||'); \
-#     && mkdir -p /app/code-server \
-#     && curl -o /tmp/code-server.tar.gz -L "https://github.com/coder/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-linux-amd64.tar.gz" \
-#     && tar xf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1
-
-RUN    CODE_RELEASE=$(curl -sX GET https://api.github.com/repos/coder/code-server/releases/latest \
-      | awk '/tag_name/{print $4;exit}' FS='[""]' | sed 's|^v||'); \
-      && \
-  mkdir -p /app/code-server && \
-  curl -o \
-    /tmp/code-server.tar.gz -L \
-    "https://github.com/coder/code-server/releases/download/v${CODE_RELEASE}/code-server-${CODE_RELEASE}-linux-amd64.tar.gz" && \
-  tar xf /tmp/code-server.tar.gz -C \
-    /app/code-server --strip-components=1
+RUN echo "***** INSTALLING CODE-SERVER *****" \
+    && CODE_SERVER_VERSION=$(curl -sX GET https://api.github.com/repos/coder/code-server/releases/latest | awk '/tag_name/{print $4;exit}' FS='[""]' | sed 's|^v||') \
+    && mkdir -p /app/code-server \
+    && curl -o /tmp/code-server.tar.gz -L "https://github.com/coder/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-linux-amd64.tar.gz" \
+    && tar xf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1
 
 # cleanup
 RUN echo "***** CLEANING UP *****" \
