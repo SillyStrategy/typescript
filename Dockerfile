@@ -37,7 +37,7 @@ RUN echo "***** INSTALLING TOOLS AND DEPENDENCIES *****" \
 
 # install code-server
 RUN echo "***** INSTALLING CODE-SERVER *****" \
-    CODE_SERVER_VERSION=$(curl -sX GET https://api.github.com/repos/coder/code-server/releases/latest | awk '/tag_name/{print $4;exit}' FS='[""]' | sed 's|^v||'); \
+    && CODE_SERVER_VERSION=$(curl -sX GET https://api.github.com/repos/coder/code-server/releases/latest | awk '/tag_name/{print $4;exit}' FS='[""]' | sed 's|^v||'); \
     && mkdir -p /app/code-server \
     && curl -o /tmp/code-server.tar.gz -L "https://github.com/coder/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-linux-amd64.tar.gz" \
     && tar xf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1
